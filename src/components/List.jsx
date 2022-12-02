@@ -107,7 +107,6 @@ function List() {
                         dispatch(removeItems(item.id));
                       }}
                     />
-                    <FiEdit onClick={() => {}} />
                   </div>
                 </div>
               );
