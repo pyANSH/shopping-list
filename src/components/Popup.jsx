@@ -7,7 +7,6 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 function Popup() {
   const toggle = useSelector((state) => state.popup.toggle);
   const count = useSelector((state) => state.list.count);
-  const list = useSelector((state) => state.list.shopList);
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [category, setcategory] = useState("");
