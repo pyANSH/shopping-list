@@ -72,6 +72,7 @@ function Popup(prop) {
       setOpendate("");
       setClosedate("");
     }
+    // eslint-disable-next-line
   }, [edit.editToggle]);
 
   return (

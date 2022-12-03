@@ -142,6 +142,20 @@ function List() {
                         {item.openingDate} - {item.closingDate}
                       </span>
                     </div>
+                    <div className="edit">
+                      <RxCross2
+                        onClick={() => {
+                          dispatch(removeItems(item.id));
+                        }}
+                      />
+                      <FiEdit
+                        onClick={() => {
+                          dispatch(setEditId(item.id - 1));
+                          dispatch(setEditToggle(true));
+                          dispatch(setToggle(true));
+                        }}
+                      />
+                    </div>
                   </div>
                 );
               })
@@ -168,6 +182,20 @@ function List() {
                       <span>
                         {item.openingDate} - {item.closingDate}
                       </span>
+                    </div>
+                    <div className="edit">
+                      <RxCross2
+                        onClick={() => {
+                          dispatch(removeItems(item.id));
+                        }}
+                      />
+                      <FiEdit
+                        onClick={() => {
+                          dispatch(setEditId(item.id - 1));
+                          dispatch(setEditToggle(true));
+                          dispatch(setToggle(true));
+                        }}
+                      />
                     </div>
                   </div>
                 );
@@ -196,6 +224,20 @@ function List() {
                       <span>
                         {item.openingDate} - {item.closingDate}
                       </span>
+                    </div>
+                    <div className="edit">
+                      <RxCross2
+                        onClick={() => {
+                          dispatch(removeItems(item.id));
+                        }}
+                      />
+                      <FiEdit
+                        onClick={() => {
+                          dispatch(setEditId(item.id - 1));
+                          dispatch(setEditToggle(true));
+                          dispatch(setToggle(true));
+                        }}
+                      />
                     </div>
                   </div>
                 );
