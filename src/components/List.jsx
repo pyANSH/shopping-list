@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { FiEdit, FiList } from "react-icons/fi";
 import Popup from "./Popup";
-import { setToggle } from "../app/PopupSlice";
+import { setEditId, setEditToggle, setToggle } from "../app/PopupSlice";
 import { RxCross2 } from "react-icons/rx";
 import { removeItems } from "../app/ListSlice";
 function List() {
@@ -105,6 +105,13 @@ function List() {
                     <RxCross2
                       onClick={() => {
                         dispatch(removeItems(item.id));
+                      }}
+                    />
+                    <FiEdit
+                      onClick={() => {
+                        dispatch(setEditId(item.id - 1));
+                        dispatch(setEditToggle(true));
+                        dispatch(setToggle(true));
                       }}
                     />
                   </div>

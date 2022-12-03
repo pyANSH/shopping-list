@@ -1,33 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RxCross2 } from "react-icons/rx";
-import { setToggle } from "../app/PopupSlice";
-import { addItems } from "../app/ListSlice";
+import { setEditId, setEditToggle, setToggle } from "../app/PopupSlice";
+import { addItems, editItems } from "../app/ListSlice";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-function Popup() {
+function Popup(prop) {
   const toggle = useSelector((state) => state.popup.toggle);
   const count = useSelector((state) => state.list.count);
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [category, setcategory] = useState("");
   const [area, setArea] = useState("");
-  const [openDate, setOpendate] = useState();
-  const [closeDate, setClosedate] = useState();
+  const [openDate, setOpendate] = useState("");
+  const [closeDate, setClosedate] = useState("");
   const [warn, setWarn] = useState("");
+  const edit = useSelector((state) => state.popup);
+  const list = useSelector((state) => state.list.shopList);
   const handleAdd = (e) => {
     e.preventDefault();
+
     if (name !== "" && category && area && openDate && closeDate) {
-      dispatch(
-        addItems({
-          id: count + 1,
-          shopName: name,
-          shopArea: area,
-          Category: category,
-          openingDate: openDate,
-          closingDate: closeDate,
-        })
-      );
-      dispatch(setToggle(false));
+      if (!edit.editToggle) {
+        dispatch(
+          addItems({
+            id: count + 1,
+            shopName: name,
+            shopArea: area,
+            Category: category,
+            openingDate: openDate,
+            closingDate: closeDate,
+          })
+        );
+        dispatch(setToggle(false));
+      }
+      if (edit.editToggle === true) {
+        dispatch(
+          editItems({
+            id: edit.editId + 1,
+            shopName: name,
+            shopArea: area,
+            Category: category,
+            openingDate: openDate,
+            closingDate: closeDate,
+          })
+        );
+        dispatch(setToggle(false));
+        dispatch(setEditToggle(false));
+        dispatch(setEditId(-1));
+      }
     } else {
       setWarn("all fields required");
       setTimeout(() => {
@@ -38,6 +58,22 @@ function Popup() {
   const reset = () => {
     setWarn("");
   };
+  useEffect(() => {
+    if (edit.editToggle) {
+      setName(list[edit.editId].shopName);
+      setcategory(list[edit.editId].Category);
+      setArea(list[edit.editId].shopArea);
+      setOpendate(list[edit.editId].openingDate);
+      setClosedate(list[edit.editId].closingDate);
+    } else {
+      setName("");
+      setcategory("");
+      setArea("");
+      setOpendate("");
+      setClosedate("");
+    }
+  }, [edit.editToggle]);
+
   return (
     <div className={`popup-body ${!toggle ? "hide" : ""}`}>
       <div className="popup-heading">
@@ -96,7 +132,6 @@ function Popup() {
         </FormControl>
         <div className="f-add-date">
           <p>Set opening date:</p>
-
           <input
             type="date"
             value={openDate}
@@ -120,7 +155,7 @@ function Popup() {
           />
         </div>
         <button className="f-btn" onClick={handleAdd}>
-          Add
+          {edit.editToggle ? "Edit Item" : "Add Item"}
         </button>
       </form>
     </div>

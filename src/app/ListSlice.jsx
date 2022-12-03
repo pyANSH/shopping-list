@@ -51,9 +51,19 @@ const listSlice = createSlice({
       state.shopList = state.shopList.filter(
         (item) => item.id !== action.payload
       );
+      state.count = state.shopList.length;
+    },
+    editItems: (state, action) => {
+      state.shopList = state.shopList.map((item) => {
+        if (item.id === action.payload.id) {
+          return action.payload;
+        }
+        return item;
+      });
+      state.count = state.shopList.length;
     },
   },
 });
 
-export const { addItems, removeItems } = listSlice.actions;
+export const { addItems, removeItems, editItems } = listSlice.actions;
 export default listSlice.reducer;
