@@ -77,7 +77,7 @@ function Popup(prop) {
   return (
     <div className={`popup-body ${!toggle ? "hide" : ""}`}>
       <div className="popup-heading">
-        <h3>Add Item</h3>
+        <h3> {edit.editToggle ? "Edit Item" : "Add Item"}</h3>
         <RxCross2
           onClick={() => {
             dispatch(setToggle(false));
